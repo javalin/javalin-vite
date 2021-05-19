@@ -1,27 +1,30 @@
 <template>
-  <img alt="Vue logo" src="../assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
-  <h1 class="bg-black">This is a test!</h1>
+  <h1>App.vue</h1>
+  <p>This is the App.vue file. It is the first component of our app and is returned on the / path via Javalin.</p>
+
+  <p>We can easily pass data from Javalin to our frontend components:<br/> Javalin says: This page was accessed
+    {{ page_loads }} times since the server started.</p>
+  <p>
+    We can also pass a global state from Javalin. This will be visible in all components: {{global_state}}
+  </p>
+  <a href="/app2">Go to App2.vue</a>
 </template>
 
-<script setup>
-import HelloWorld from './HelloWorld.vue'
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-
-
-
-
+<script>
+export default {
+  data() {
+    return {
+      page_loads: $javalin.state.pageLoads,
+      global_state: $javalin.globalState
+    }
+  }
+}
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: sans-serif;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 </style>

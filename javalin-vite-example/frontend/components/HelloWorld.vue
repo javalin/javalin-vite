@@ -1,29 +1,18 @@
 <template>
-  <h1>{{ msg }}</h1>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Documentation asdfasdfd
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
-  </p>
-
-  <button @click="state.count++">some count is: {{ state.count }}</button>
-  <p>
-    Edit asdfasdfasdf
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+  <div>
+    <h3>{{ msg }}</h3>
+    <button @click="state.count++">This Button was clicked {{ state.count }} times.</button>
+  </div>
 </template>
 
 <script setup>
-import { defineProps, reactive } from 'vue'
+import {defineProps, reactive} from 'vue'
 
 defineProps({
   msg: String
 })
 
-const state = reactive({ count: 0 })
+const state = reactive({count: 0})
 </script>
 
 <style scoped>

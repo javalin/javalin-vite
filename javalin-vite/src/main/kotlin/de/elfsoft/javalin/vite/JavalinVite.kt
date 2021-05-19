@@ -42,7 +42,12 @@ object JavalinVite {
     private fun configureProductionMode(config: JavalinConfig) {
         // Register built libs as static path. They will be included in the jar during build.
         // Since the jar path is hardcoded in the pom.xml, it can be hardcoded here.
-        config.addStaticFiles("/frontend", Location.CLASSPATH)
+        try {
+            config.addStaticFiles("/frontend", Location.CLASSPATH)
+        } catch (e:Exception) {
+            println("Error registering /frontend path. You are probably running the app in production mode without precompiled assets in the classpath.")
+            throw e
+        }
 
         // Load the manifest.json and parse it in order to allow ViteHandler to map source paths to compiled files
         val mapper = JavalinJackson.defaultObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)

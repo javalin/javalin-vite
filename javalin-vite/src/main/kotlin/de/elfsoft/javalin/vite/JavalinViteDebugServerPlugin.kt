@@ -43,12 +43,8 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
             it.serverStarting {
                 startDevServer()
             }
-
-            it.serverStopping {
-                println("JavalinVite: Shutting down dev server")
-                viteThread.join()
-                println("JavalinVite: dev server was shut down")
-            }
         }
     }
+
+
 }

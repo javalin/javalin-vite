@@ -1,30 +1,22 @@
 <template>
-  <h1 class="bg-black">This is a test with state {{some_data}}!</h1>
-</template>
+  <h1>App2.vue</h1>
+  <p>This is the App2.vue file. It even contains a Hello World component:</p>
+
+  <HelloWorld msg="Hello World!"></HelloWorld>
+
+  <a href="/">Go to App.vue</a></template>
 
 <script>
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-
-
+import HelloWorld from "./HelloWorld.vue";
 export default {
-  data() {
-    return {
-      some_data: $javalin.queryParams["test"]
-    }
-  }
+  components: {HelloWorld}
 }
-
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: sans-serif;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 </style>
