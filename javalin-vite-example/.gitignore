@@ -155,5 +155,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 *.iml
+
+# Javalin-Vite files
+cache
+frontend_dist
+node
+package-lock.json
