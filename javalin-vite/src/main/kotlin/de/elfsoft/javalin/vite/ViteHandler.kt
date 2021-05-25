@@ -3,6 +3,7 @@ package de.elfsoft.javalin.vite
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import io.javalin.plugin.json.JavalinJson
+import java.lang.RuntimeException
 import java.net.URLEncoder
 
 class ViteHandler(val entryFile: String, val localStateFunction: (Context) -> Any = { }) : Handler {
@@ -11,7 +12,7 @@ class ViteHandler(val entryFile: String, val localStateFunction: (Context) -> An
     // In dev mode, it is directly used, in production mode we map it to the compiled resource
     val filepath = "${JavalinVite.frontendBaseDir}/$entryFile"
 
-    private val layoutHTML = javaClass.getResource("/vite/layout.html").readText()
+    private val layoutHTML = javaClass.getResource("/vite/layout.html")?.readText() ?: throw RuntimeException("Did not find resource /vite/layout.html. Please make sure that the file exists.")
 
 
     override fun handle(ctx: Context) {

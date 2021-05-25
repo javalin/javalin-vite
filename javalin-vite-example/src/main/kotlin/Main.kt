@@ -14,9 +14,9 @@ fun main(args: Array<String>) {
     }
 
     var i = 0
-    app.get("/", ViteHandler("pages/app.js") {
+    app.get("/", ViteHandler("apps/app.js") {
         mapOf("pageLoads" to i++)
     })
 
-    app.get("/app2", ViteHandler("pages/app2.js"))
+    app.get("/app2", ViteHandler("apps/app2.js"))
 }

@@ -10,6 +10,7 @@ import io.javalin.http.staticfiles.Location
 import io.javalin.plugin.json.JavalinJackson
 import java.io.File
 import java.lang.IllegalStateException
+import java.lang.RuntimeException
 import java.util.*
 
 object JavalinVite {
@@ -52,7 +53,7 @@ object JavalinVite {
         // Load the manifest.json and parse it in order to allow ViteHandler to map source paths to compiled files
         val mapper = JavalinJackson.defaultObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-        val manifestJSON = javaClass.getResource("/frontend/manifest.json").readText()
+        val manifestJSON = javaClass.getResource("/frontend/manifest.json")?.readText() ?: throw RuntimeException("Did not find manifest.json. Please make sure that you have included the production frontend in your classpath.")
 
         val manifestMap: Map<String, PackingInfo> = mapper.readValue(manifestJSON)
 
@@ -85,7 +86,7 @@ object JavalinVite {
 
         // Get node version used by pom.xml
         val props = Properties()
-        props.load(javaClass.getResource("/pom.properties").openStream())
+        props.load(javaClass.getResource("/pom.properties")?.openStream() ?: throw RuntimeException("Error loading pom.properties. Please make sure that the file exists. Check the javalin-vite-example for details."))
 
         val nodeVersion = props.getProperty("nodeVersion") ?: throw IllegalStateException("Error loading nodeVersion from pom.properties file. Check your config!")
         val npmVersion = props.getProperty("npmVersion") ?: throw IllegalStateException("Error loading npmVersion from pom.properties file. Check your config!")

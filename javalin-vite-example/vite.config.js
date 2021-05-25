@@ -26,7 +26,7 @@ export default defineConfig({
                     ]
                 })
             ],
-            input: globby.sync("frontend/pages/*.js"),
+            input: globby.sync("frontend/apps/*.js"),
             output: {
                 dir: resolve(__dirname, "./frontend_dist")
             }
