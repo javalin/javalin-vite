@@ -14,18 +14,28 @@ Additionally, Javalin-Vite includes the following features similar to JavalinVue
 
 ## Getting Started
 
-### Adding javalin-vite to your local maven repository
+### 1. Install javalin-vite to your local maven repository
 open the [javalin-vite](https://github.com/ClemensElflein/javalin-vite/tree/main/javalin-vite) directory and run this command to install it locally.
 
 ```bash
 mvn clean install
 ```
-### Try javalin-vite with the given example
+
+### 2. Use Javalin-Vite in your project
+
+You can either use the example to build your project or you can add javalin vite to your existing project. **We recommend that you always start using the example and add your existing code to it.**
+
+### 2.1 Using the javalin-vite example
+
+
+
 Just copy the [example project](https://github.com/ClemensElflein/javalin-vite/tree/main/javalin-vite-example) included in this repository and run the Main.kt function.
+**You need to start the app with the *dev* argument or else Javalin-Vite tries to server the compiled production data which is not available in the IDE.**
+Javalin will listen on http://localhost:7000/ and an example app will be served.
 
-### Add javalin-vite to active javalin project (Maven)
+### 2.2 Add javalin-vite to active javalin project (Maven)
 
-#### Add dependency
+##### Add dependency
 ```xml
 <dependency>
     <groupId>de.elfsoft</groupId>
@@ -33,14 +43,14 @@ Just copy the [example project](https://github.com/ClemensElflein/javalin-vite/t
     <version>0.9.2</version>
 </dependency>
 ```
-#### Add properties
+##### Add properties
 ```xml
 <properties>
   <nodeVersion>v14.17.0</nodeVersion>
   <npmVersion>provided</npmVersion>
 </properties>
 ```
-#### Add plugin
+##### Add plugin
 ```xml
 <build>
   <plugins>
@@ -94,7 +104,7 @@ Just copy the [example project](https://github.com/ClemensElflein/javalin-vite/t
   </plugins>
 </build>
 ```
-#### Add resources
+##### Add resources
 ```xml
 <build>
   <resources>
@@ -115,7 +125,7 @@ Just copy the [example project](https://github.com/ClemensElflein/javalin-vite/t
   </resources>
 </build>
 ```
-#### Create vite config file
+##### Create vite config file
 This file should be located at your project root. It defines directorys and files used by javalin-vite.
 ```javascript
 //vite.config.js
@@ -155,7 +165,7 @@ export default defineConfig({
     }
 })
 ```
-#### Add layout file
+##### Add layout file
 At **_resources/vite/layout.html_**.
 ```html
 <html>
@@ -168,13 +178,13 @@ At **_resources/vite/layout.html_**.
   </body>
 </html>
 ```
-#### Add pom.properties file
+##### Add pom.properties file
 Next to your **_resources_** directory, add another directory named **_resources-filtered_**, which contains a **pom.properties** file.
 ```javascript
 nodeVersion=${nodeVersion}
 npmVersion=${npmVersion}
 ```
-#### Add the frontend root directory
+##### Add the frontend root directory
 This directory named **_frontend_** has to be located at the project root. It should contain two other directories named **_components_** and **_pages_**.
 The **_components_** directory is used to store the project's \*.vue components.
 ```vue
@@ -208,7 +218,7 @@ import App from '../components/App.vue'
 
 createApp(App).mount("#app")
 ```
-#### Write some code (finally)
+##### Write some code (finally)
 ```kotlin
 import de.elfsoft.javalin.vite.JavalinVite
 import de.elfsoft.javalin.vite.ViteHandler
