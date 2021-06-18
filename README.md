@@ -4,12 +4,12 @@ Javalin-Vite is a Javalin integration which allows us to create complex Vue 3 ap
 
 ## Do I need Javalin-Vite?
 Javalin-Vite has the following advantages compared to the official JavalinVue integration:
-- **Production ready packaging** - Frontend files will be packed and minified before packaging the final .jar file. This reduces file size and increases performance of your app.
+- **One Click Production Ready Packaging** - Frontend files will be packed and minified before packaging the final .jar file. This reduces file size and increases performance of your app.
 - **Hot Module Replacement (HMR)** - During development, all edits to frontend files will be reflected in the browser immediately, without manually hitting refresh.
 - **NPM support** - You can install frontend packages using NPM. This has the benefit that builds can be optimized for your frontend. E.g. tailwind.css has a development size of about 3 MB, whereas a typical production file size is only about 10 KB.
 
 Additionally, Javalin-Vite includes the following features similar to JavalinVue:
-- Multiple Vue components for multiple routes are possible
+- Multiple independent Vue apps for multiple routes are possible
 - The server side state is shared between backend and frontend. There even is a local state for each component.
 
 ## Getting Started
@@ -33,8 +33,9 @@ Just copy the [example project](https://github.com/ClemensElflein/javalin-vite/t
 **You need to start the app with the *dev* argument or else Javalin-Vite tries to server the compiled production data which is not available in the IDE.**
 Javalin will listen on http://localhost:7000/ and an example app will be served.
 
-### 2.2 Add javalin-vite to active javalin project (Maven)
-
+### 2.2 Add javalin-vite to active javalin project (Don't do it)
+#### Changes to your pom.xml
+The following changes to your pom.xml are needed:
 ##### Add dependency
 ```xml
 <dependency>
@@ -125,8 +126,8 @@ Javalin will listen on http://localhost:7000/ and an example app will be served.
   </resources>
 </build>
 ```
-##### Create vite config file
-This file should be located at your project root. It defines directorys and files used by javalin-vite.
+#### Create vite config file (vite.config.js)
+This file must be located at your project root. It defines directories and files used by javalin-vite.
 ```javascript
 //vite.config.js
 import {defineConfig} from 'vite'
