@@ -2,7 +2,7 @@ package de.elfsoft.javalin.vite
 
 import io.javalin.http.Context
 import io.javalin.http.Handler
-import io.javalin.plugin.json.JavalinJson
+import io.javalin.plugin.json.JavalinJackson
 import java.net.URLEncoder
 
 abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (Context) -> Any = { }) : Handler {
@@ -12,10 +12,10 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
     val filepath = "${JavalinVite.frontendBaseDir}/$entryFile"
 
 
-    protected fun encodeVueState(ctx: Context) : String = "\n<script>\n" +
+    protected fun encodeVueState(ctx: Context): String = "\n<script>\n" +
             "\$javalin = JSON.parse(decodeURIComponent(\"${
                 urlEncodeForJavascript(
-                    JavalinJson.toJson(
+                    JavalinJackson.defaultMapper().writeValueAsString(
                         mapOf(
                             "pathParams" to ctx.pathParamMap(),
                             "queryParams" to ctx.queryParamMap(),
@@ -50,7 +50,8 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
             """.trimIndent()
     }
 
-    protected fun getViteInjection(ctx: Context) = if(JavalinVite.isDevMode()) getDevelopmentInjection(ctx) else getProductionInjection(ctx)
+    protected fun getViteInjection(ctx: Context) =
+        if (JavalinVite.isDevMode()) getDevelopmentInjection(ctx) else getProductionInjection(ctx)
 
     // Unfortunately, Java's URLEncoder does not encode the space character in the same way as Javascript.
     // Javascript expects a space character to be encoded as "%20", whereas Java encodes it as "+".

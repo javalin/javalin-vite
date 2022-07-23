@@ -9,7 +9,7 @@ import java.io.File
 
 internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVersion: String) : Plugin {
 
-    private var npm : NpmRunner? = null
+    private var npm: NpmRunner? = null
 
     private val viteThread = Thread {
         println("JavalinVite: Running npm run dev")
@@ -20,7 +20,7 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
         println("JavalinVite: Using node version: $nodeVersion, npm version: $npmVersion and frontend base directory: ${JavalinVite.frontendBaseDir}")
 
         // Download and install NPM, install dependencies and start vite
-        val factory = FrontendPluginFactory(File("."), File("."))
+        val factory = FrontendPluginFactory(File(".").absoluteFile, File(".").absoluteFile)
         val p = ProxyConfig(emptyList())
         val nodeInstaller = factory.getNodeInstaller(p)
         nodeInstaller.setNodeVersion(nodeVersion)
@@ -33,7 +33,7 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
         npmInstaller.install()
 
         npm = factory.getNpmRunner(p, "")
-        npm?.execute("install", emptyMap())
+        npm?.execute("install", mapOf())
 
         viteThread.start()
     }
