@@ -1,0 +1,18 @@
+{
+  "name": "javalin-vite-vue-example",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vue/compiler-sfc": "^3.2.37",
+    "globby": "^11.0.3",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "vite": "^3.0.2"
+  }
+}

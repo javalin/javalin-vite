@@ -1,5 +1,5 @@
 import {defineConfig} from 'vite'
-import vue from '@vitejs/plugin-vue'
+import {svelte} from "@sveltejs/vite-plugin-svelte";
 
 // We use cleaner to clean the frontend_dist folder before packing it into .jar files.
 // Else the new files will be added and old files will still be included in the build
@@ -9,13 +9,13 @@ import cleaner from 'rollup-plugin-cleaner';
 // Unfortunately, rollupjs can not natively handle wildcards here.
 import globby from "globby";
 
-const {resolve} = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        vue()
-    ],
+    plugins: [svelte()],
+    server: {
+        port: 3000
+    },
     build: {
         manifest: true,
         rollupOptions: {
@@ -28,7 +28,7 @@ export default defineConfig({
             ],
             input: globby.sync("frontend/apps/*.js"),
             output: {
-                dir: resolve(__dirname, "./frontend_dist")
+                dir: "./frontend_dist"
             }
         }
     }
