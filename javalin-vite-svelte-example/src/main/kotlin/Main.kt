@@ -3,10 +3,10 @@ import de.elfsoft.javalin.vite.ViteHandler
 import io.javalin.Javalin
 
 fun main(args: Array<String>) {
-    val isDevMode = args.isNotEmpty() && "DEV".equals(args[0], true)
+    val isProdMode = args.isNotEmpty() && "PROD".equals(args[0], true)
 
     val app = Javalin.create { config ->
-        JavalinVite.configure(config, isDevMode)
+        JavalinVite.configure(config, !isProdMode)
     }.start(7000)
 
     JavalinVite.stateFunction = {

@@ -1,15 +1,15 @@
 <template>
   <h1>App2.vue</h1>
-  <p>This is the App2.vue file. It even contains a Hello World component:</p>
+  <p>This is the App2.vue file. It even contains a Counter component:</p>
 
-  <HelloWorld msg="Hello World!"></HelloWorld>
+  <Counter class="card"></Counter>
 
   <a href="/">Go to App.vue</a></template>
 
 <script>
-import HelloWorld from "./HelloWorld.vue";
+import Counter from "./Counter.vue";
 export default {
-  components: {HelloWorld}
+  components: {Counter}
 }
 </script>
 
