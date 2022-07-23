@@ -12,7 +12,7 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
     val filepath = "${JavalinVite.frontendBaseDir}/$entryFile"
 
 
-    protected fun encodeVueState(ctx: Context): String = "\n<script>\n" +
+    protected fun encodeFrameworkState(ctx: Context): String = "\n<script>\n" +
             "const _javalin = JSON.parse(decodeURIComponent(\"${
                 urlEncodeForJavascript(
                     JavalinJackson.defaultMapper().writeValueAsString(
@@ -31,7 +31,7 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
      */
     private fun getDevelopmentInjection(ctx: Context) = """
                     <!-- if development -->
-                    ${encodeVueState(ctx)}
+                    ${encodeFrameworkState(ctx)}
                     <script type="module" src="http://localhost:3000/@vite/client"></script>
                     <script type="module" src="http://localhost:3000/$filepath"></script>
             """.trimIndent()
@@ -44,7 +44,7 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
             ?: throw IllegalStateException("No entry in manifest.json for path $filepath. Make sure that your vite.config.js file contains the specified file as input.")
 
         return """
-                    ${encodeVueState(ctx)}
+                    ${encodeFrameworkState(ctx)}
                     ${packingInfo.css.map { """<link rel="stylesheet" href="/${it}">""" }.joinToString("")}
                     <script type="module" src="/${packingInfo.js}"></script>
             """.trimIndent()
