@@ -13,7 +13,7 @@ abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (C
 
 
     protected fun encodeVueState(ctx: Context): String = "\n<script>\n" +
-            "\$javalin = JSON.parse(decodeURIComponent(\"${
+            "const _javalin = JSON.parse(decodeURIComponent(\"${
                 urlEncodeForJavascript(
                     JavalinJackson.defaultMapper().writeValueAsString(
                         mapOf(
