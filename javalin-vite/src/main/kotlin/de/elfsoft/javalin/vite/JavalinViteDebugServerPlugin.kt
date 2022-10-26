@@ -4,8 +4,9 @@ import com.github.eirslett.maven.plugins.frontend.lib.FrontendPluginFactory
 import com.github.eirslett.maven.plugins.frontend.lib.NpmRunner
 import com.github.eirslett.maven.plugins.frontend.lib.ProxyConfig
 import io.javalin.Javalin
-import io.javalin.core.plugin.Plugin
+import io.javalin.plugin.Plugin
 import java.io.File
+import kotlin.concurrent.thread
 
 internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVersion: String) : Plugin {
 
@@ -42,6 +43,15 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
         app.events {
             it.serverStarting {
                 startDevServer()
+
+
+            }
+            it.serverStarted {
+                Runtime.getRuntime().addShutdownHook(Thread {
+                    println("Shutting down vite dev server!")
+                    viteThread.join()
+                    println("Vite dev server shut down successfully!")
+                })
             }
         }
     }

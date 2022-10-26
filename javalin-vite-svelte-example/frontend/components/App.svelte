@@ -13,7 +13,7 @@
     </a>
   </div>
   <h1>App.vue</h1>
-  <p>This is the App.vue file. It is the first component of our app and is returned on the / path via Javalin.</p>
+  <p>This is the App.svelte file. It is the first component of our app and is returned on the / path via Javalin.</p>
 
   <p>We can easily pass data from Javalin to our frontend components:<br/> Javalin says: This page was accessed
     {_javalin.state.pageLoads} times since the server started.</p>
