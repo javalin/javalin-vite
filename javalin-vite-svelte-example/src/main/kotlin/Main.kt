@@ -1,5 +1,5 @@
-import de.elfsoft.javalin.vite.JavalinVite
-import de.elfsoft.javalin.vite.ViteHandler
+import io.javalin.vite.JavalinVite
+import io.javalin.vite.ViteHandler
 import io.javalin.Javalin
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package de.elfsoft.javalin.vite
+package io.javalin.vite
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.readValue

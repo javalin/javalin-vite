@@ -1,4 +1,4 @@
-package de.elfsoft.javalin.vite
+package io.javalin.vite
 
 import com.github.eirslett.maven.plugins.frontend.lib.FrontendPluginFactory
 import com.github.eirslett.maven.plugins.frontend.lib.NpmRunner
@@ -35,19 +35,18 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
         println("Running npm run dev...")
 
         val oldPath = System.getenv()["PATH"]
-        val pathToNpm = File("./node").absolutePath
+        val pathToNode = File("./node").absolutePath
         val (command, env) = if (System.getProperty("os.name").lowercase().indexOf("win") >= 0) {
             println("Executing on windows")
-            Pair("npm.cmd", arrayOf("PATH=$pathToNpm;$oldPath"))
+            Pair("node.exe", arrayOf("PATH=$pathToNode;$oldPath"))
         } else {
-            Pair("npm", emptyArray())
+            Pair("node", emptyArray())
         }
 
         process = Runtime.getRuntime().exec(
             arrayOf(
-                "$pathToNpm\\$command",
-                "run",
-                "dev"
+                "$pathToNode\\$command",
+                "./node_modules/vite/bin/vite.js"
             ).also { println("Starting vite with command: ${it.joinToString(" ")}") }, env, File(".")
         )
     }
@@ -61,6 +60,12 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
                 Runtime.getRuntime().addShutdownHook(Thread {
                     println("Shutting down vite dev server...")
                     process?.destroy()
+
+                    if (process?.isAlive == true) {
+                        println("Destroying vite forcibly!")
+                        process?.destroyForcibly()
+                    }
+
                     process?.waitFor()
                     println("Vite dev server shut down successfully!")
                 })

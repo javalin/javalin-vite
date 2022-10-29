@@ -39,7 +39,7 @@ The following changes to your pom.xml are needed:
 ##### Add dependency
 ```xml
 <dependency>
-    <groupId>de.elfsoft</groupId>
+    <groupId>io.javalin</groupId>
     <artifactId>javalin-vite</artifactId>
     <version>0.9.2</version>
 </dependency>
@@ -221,8 +221,8 @@ createApp(App).mount("#app")
 ```
 ##### Write some code (finally)
 ```kotlin
-import de.elfsoft.javalin.vite.JavalinVite
-import de.elfsoft.javalin.vite.ViteHandler
+import io.javalin.javalin.vite.JavalinVite
+import io.javalin.javalin.vite.ViteHandler
 import io.javalin.Javalin
 
 fun main(args: Array<String>) {

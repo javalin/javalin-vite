@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>javalin-vite</artifactId>
-    <groupId>de.elfsoft</groupId>
-    <version>0.9.3</version>
+    <groupId>io.javalin</groupId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>javalin-vite</name>

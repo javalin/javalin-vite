@@ -1,4 +1,4 @@
-package de.elfsoft.javalin.vite
+package io.javalin.vite
 
 import io.javalin.http.Context
 import io.javalin.http.Handler

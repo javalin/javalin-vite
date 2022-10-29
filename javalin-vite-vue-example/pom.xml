@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>javalin-vite-example</artifactId>
-    <groupId>de.elfsoft.test</groupId>
+    <groupId>io.javalin.test</groupId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -161,9 +161,9 @@
     <dependencies>
         <!-- The JavalinVite package has the runtime components needed for this to work -->
         <dependency>
-            <groupId>de.elfsoft</groupId>
+            <groupId>io.javalin</groupId>
             <artifactId>javalin-vite</artifactId>
-            <version>0.9.3</version>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
