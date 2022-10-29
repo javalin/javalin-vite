@@ -11,13 +11,9 @@ import kotlin.concurrent.thread
 internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVersion: String) : Plugin {
 
     private var npm: NpmRunner? = null
+    private var process: Process? = null
 
-    private val viteThread = Thread {
-        println("JavalinVite: Running npm run dev")
-        npm?.execute("run dev", emptyMap())
-    }
-
-    private fun startDevServer() {
+    private fun startDevServer(javalinHost: String) {
         println("JavalinVite: Using node version: $nodeVersion, npm version: $npmVersion and frontend base directory: ${JavalinVite.frontendBaseDir}")
 
         // Download and install NPM, install dependencies and start vite
@@ -36,20 +32,36 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
         npm = factory.getNpmRunner(p, "")
         npm?.execute("install", mapOf())
 
-        viteThread.start()
+        println("Running npm run dev...")
+
+        val oldPath = System.getenv()["PATH"]
+        val pathToNpm = File("./node").absolutePath
+        val (command, env) = if (System.getProperty("os.name").lowercase().indexOf("win") >= 0) {
+            println("Executing on windows")
+            Pair("npm.cmd", arrayOf("PATH=$pathToNpm;$oldPath"))
+        } else {
+            Pair("npm", emptyArray())
+        }
+
+        process = Runtime.getRuntime().exec(
+            arrayOf(
+                "$pathToNpm\\$command",
+                "run",
+                "dev"
+            ).also { println("Starting vite with command: ${it.joinToString(" ")}") }, env, File(".")
+        )
     }
 
     override fun apply(app: Javalin) {
         app.events {
             it.serverStarting {
-                startDevServer()
-
-
+                startDevServer(app.jettyServer()?.serverHost ?: "127.0.0.1")
             }
             it.serverStarted {
                 Runtime.getRuntime().addShutdownHook(Thread {
-                    println("Shutting down vite dev server!")
-                    viteThread.join()
+                    println("Shutting down vite dev server...")
+                    process?.destroy()
+                    process?.waitFor()
                     println("Vite dev server shut down successfully!")
                 })
             }
