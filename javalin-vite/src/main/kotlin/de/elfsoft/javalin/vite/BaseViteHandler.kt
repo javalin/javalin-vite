@@ -2,7 +2,7 @@ package de.elfsoft.javalin.vite
 
 import io.javalin.http.Context
 import io.javalin.http.Handler
-import io.javalin.plugin.json.JavalinJackson
+import io.javalin.json.JavalinJackson
 import java.net.URLEncoder
 
 abstract class BaseViteHandler(val entryFile: String, val localStateFunction: (Context) -> Any = { }) : Handler {

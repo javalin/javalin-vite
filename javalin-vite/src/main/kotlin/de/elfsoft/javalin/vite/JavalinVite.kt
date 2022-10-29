@@ -2,10 +2,10 @@ package de.elfsoft.javalin.vite
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.javalin.core.JavalinConfig
+import io.javalin.config.JavalinConfig
 import io.javalin.http.Context
 import io.javalin.http.staticfiles.Location
-import io.javalin.plugin.json.JavalinJackson
+import io.javalin.json.JavalinJackson
 import java.util.*
 
 object JavalinVite {
@@ -45,7 +45,7 @@ object JavalinVite {
         // Register built libs as static path. They will be included in the jar during build.
         // Since the jar path is hardcoded in the pom.xml, it can be hardcoded here.
         try {
-            config.addStaticFiles("/frontend", Location.CLASSPATH)
+            config.staticFiles.add("/frontend", Location.CLASSPATH)
         } catch (e: Exception) {
             println("Error registering /frontend path. You are probably running the app in production mode without precompiled assets in the classpath.")
             throw e
@@ -84,7 +84,7 @@ object JavalinVite {
     private fun configureDevMode(config: JavalinConfig) {
         println("!!!! RUNNING JAVALIN VITE IN DEV MODE !!!!")
         // Register frontend path as static files in order to make them available during development mode
-        config.addStaticFiles { staticFiles ->
+        config.staticFiles.add { staticFiles ->
             staticFiles.hostedPath = "/$frontendBaseDir"
             staticFiles.directory = "./$frontendBaseDir"
             staticFiles.location = Location.EXTERNAL
@@ -103,7 +103,7 @@ object JavalinVite {
             ?: throw IllegalStateException("Error loading npmVersion from pom.properties file. Check your config!")
 
 
-        config.registerPlugin(JavalinViteDebugServerPlugin(nodeVersion, npmVersion))
+        config.plugins.register(JavalinViteDebugServerPlugin(nodeVersion, npmVersion))
     }
 
 }
