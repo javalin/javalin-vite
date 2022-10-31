@@ -36,19 +36,27 @@ internal class JavalinViteDebugServerPlugin(val nodeVersion: String, val npmVers
 
         val oldPath = System.getenv()["PATH"]
         val pathToNode = File("./node").absolutePath
-        val (command, env) = if (System.getProperty("os.name").lowercase().indexOf("win") >= 0) {
+        if (System.getProperty("os.name").lowercase().indexOf("win") >= 0) {
             println("Executing on windows")
-            Pair("node.exe", arrayOf("PATH=$pathToNode;$oldPath"))
-        } else {
-            Pair("node", emptyArray())
-        }
+            val command = "node.exe"
+            val env = arrayOf("PATH=$pathToNode;$oldPath")
 
-        process = Runtime.getRuntime().exec(
-            arrayOf(
-                "$pathToNode\\$command",
-                "./node_modules/vite/bin/vite.js"
-            ).also { println("Starting vite with command: ${it.joinToString(" ")}") }, env, File(".")
-        )
+            process = Runtime.getRuntime().exec(
+                arrayOf(
+                    "$pathToNode\\$command",
+                    "./node_modules/vite/bin/vite.js"
+                ).also { println("Starting vite with command: ${it.joinToString(" ")}") }, env, File(".")
+            )
+        } else {
+            val command = "node"
+
+            process = Runtime.getRuntime().exec(
+                arrayOf(
+                    "$pathToNode/$command",
+                    "./node_modules/vite/bin/vite.js"
+                ).also { println("Starting vite with command: ${it.joinToString(" ")}") }, emptyArray(), File(".")
+            )
+        }
     }
 
     override fun apply(app: Javalin) {
