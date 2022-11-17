@@ -161,9 +161,9 @@
     <dependencies>
         <!-- The JavalinVite package has the runtime components needed for this to work -->
         <dependency>
-            <groupId>io.javalin</groupId>
+            <groupId>io.javalin.community.vite</groupId>
             <artifactId>javalin-vite</artifactId>
-            <version>1.0.0</version>
+            <version>5.0.0</version>
         </dependency>
 
         <dependency>
